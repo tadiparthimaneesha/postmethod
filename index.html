@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		body{
+			background-image:url(https://4kwallpapers.com/images/wallpapers/waves-blue-gradient-background-stock-3200x2560-1166.jpg);
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+		.data{
+			text-align: center;
+			margin-top: 8%;
+		}
+		.page{
+			font-size: 40px;
+			color: #FFFF00
+		}
+		#info{
+			padding: 0.5%;
+			font-size: 15px;
+			border-radius: 25px;
+		}
+		#password{
+			padding: 0.5%;
+			font-size: 15px;
+			border-radius: 25px;
+		}
+		.btn{
+			width: 6%;
+			padding: 0.3%;
+			border-radius: 20px;
+		}
+		#group{
+			font-size: 16px;
+			border-radius: 25px;
+			padding: 0.3%;
+			width: 13%;
+		}
+	</style>
+</head>
+<body>
+	<div class="data">
+	<h1 class="page">REGISTRATION PAGE</h1>
+	<p><input placeholder="Enter username" id="info"/></p>
+	<p><input placeholder="Enter password" id="password" type="password"/></p>
+	<p><select id="group">
+		<option value="Select Group">select Group</option>
+		<option value="Degree">Degree</option>
+		<option value="Polytechnic">Polytechnic</option>
+		<option value="Engineering">Engineering</option>
+		<option value="Medical">Medical</option>
+	</select></p>
+	<p><input type="radio" name="gender" id="male" />Male
+	<input type="radio" name="gender" id="female"/>Female</p>
+	<button class="btn" onclick="show()">Submit</button>
+</div>
+	<script type="text/javascript">
+		function show(){
+				var username=document.getElementById("info").value
+				var password=document.getElementById("password").value
+				var option=document.getElementById("group").value
+				var gmale=document.getElementById("male").checked
+				var gfemale=document.getElementById("female").checked
+				if(gmale==true) var gender="male"
+				else var gender="female"
+				console.log(username,password,option,gender)
+				fetch("http://localhost:3000/newData",{
+				method:"POST",
+				headers:{
+					"Content-Type":"application/json"
+				},
+				body:JSON.stringify({name:username,password:password,group:option,gender:gender})
+			})
+				.then((res)=>{
+					console.log(res)
+					if(res.status===200)
+						alert("Registration Successful")
+				})
+				.catch((err)=>{
+					alert(err)
+				})
+		}
+	</script>
+</body>
+</html>
